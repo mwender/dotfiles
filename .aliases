@@ -15,6 +15,10 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 
+# Application Shortcuts
+alias sourcetree='open -a SourceTree'
+alias photoshop='open -a PhotoShop'
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
