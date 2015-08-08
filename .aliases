@@ -18,9 +18,12 @@ alias h="history"
 alias j="jobs"
 
 # Application Shortcuts
-alias sourcetree='open -a SourceTree'
+alias chrm='open /Applications/Google Chrome.app'
+alias evernote='open -a Evernote'
+alias illustrator='open /Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app'
 alias photoshop='open -a PhotoShop'
 alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app'
+alias sourcetree='open -a SourceTree'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
