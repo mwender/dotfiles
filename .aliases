@@ -33,6 +33,9 @@ else # OS X `ls`
 	colorflag="-G"
 fi
 
+# Start SFTP with-readline
+alias sftp="with-readline sftp"
+
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
 alias ll="ls -lahF ${colorflag}"
