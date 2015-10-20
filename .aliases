@@ -16,6 +16,7 @@ alias dt="cd ~/Desktop"
 alias g="git"
 alias h="history"
 alias j="jobs"
+alias sublnote="subl ~/Dropbox/evernote.sublime-project"
 
 # Application Shortcuts
 alias chrm='open /Applications/Google Chrome.app'
