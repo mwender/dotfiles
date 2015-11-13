@@ -26,6 +26,8 @@ alias illustrator='open /Applications/Adobe Illustrator CC 2015/Adobe Illustrato
 alias photoshop='open -a PhotoShop'
 alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
 alias sourcetree='open -a SourceTree'
+alias grav='bin/grav'
+alias gpm='bin/gpm'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
