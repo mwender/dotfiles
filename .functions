@@ -21,6 +21,14 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext '_reduced.png' $1
 }
 
+# Pretty print your directories
+# Install `tree` first - brew install tree
+function t(){
+	# Defaults to 3 levels deep, do more with `t 5` or `t 1`
+	# pass additional args after
+	tree -I '.git|node_modules|bower_components|.DS_Store' --dirsfirst --filelimit 15 -L ${1:-3} -aC $2
+}
+
 # Open WHMCS Invoice
 invoice(){
 	open https://www.wenderhost.com/clients/administration/invoices.php?action=edit\&id=$1
