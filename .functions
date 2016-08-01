@@ -31,7 +31,7 @@ function t(){
 
 # Open WHMCS Invoice
 invoice(){
-	open https://www.wenderhost.com/clients/administration/invoices.php?action=edit\&id=$1
+	open https://clients.wenderhost.com/administration/invoices.php?action=edit\&id=$1
 }
 
 # Create a new directory and enter it
