@@ -112,6 +112,14 @@ function gitio() {
 	curl -i http://git.io/ -F "url=${2}" -F "code=${1}";
 }
 
+# Rename files in current dir (spaces to underscores, remove chars like `{}(),\!`, and all lowercase)
+function renamefiles(){
+	ls | while read -r FILE
+	do
+	    mv -v "$FILE" `echo $FILE | tr ' ' '_' | tr -d '[{}(),\!]' | tr -d "\'" | tr '[A-Z]' '[a-z]' | sed 's/_-_/_/g'`
+	done
+}
+
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
 	local port="${1:-8000}";
