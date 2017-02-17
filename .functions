@@ -39,6 +39,16 @@ function mkd() {
 	mkdir -p "$@" && cd "$_";
 }
 
+# Open New Journal Entry
+function journal(){
+	cd ~/Dropbox/Writer/Journal;
+	now="$(date +'%Y-%m-%d')";
+	heading="# $(date +'%a, %b %d, %Y at %l:%M%p')";
+	touch "$now.md";
+	echo $heading > "$now.md";
+	subl "$now.md";
+}
+
 # Change working directory to the top-most Finder window location
 function cdf() { # short for `cdfinder`
 	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
