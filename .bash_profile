@@ -1,7 +1,5 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
-# 06/29/2016 (09:55) - [adding homebrew to path](http://docs.python-guide.org/en/latest/starting/install/osx/)
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH;
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
