@@ -18,7 +18,7 @@ function calc() {
 
 # Run TinyPNG on an image
 shrinkpng(){
-	pngquant --quality 70-90 --force --speed 1 -v --ext '_reduced.png' $1
+	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
 # Pretty print your directories
