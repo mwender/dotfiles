@@ -21,6 +21,11 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
+# Find Local Site Shells
+function localshells(){
+	find ~/Library/Application\ Support/Local/ssh-entry/*.sh -exec grep -H 'echo -n -e' {} \; | sed -E 's/^(.*):.*;(.*)Shell\\.*/\2 @ "\1"/' | column -s '@' -t
+}
+
 # Pretty print your directories
 # Install `tree` first - brew install tree
 function t(){
