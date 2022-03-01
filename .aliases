@@ -10,13 +10,14 @@ alias cpwd="pwd | pbcopy"
 # Shortcuts
 alias d="cd ~/Dropbox"
 alias wh="cd ~/Dropbox/WenderHost"
-alias web="cd ~/Dropbox/vagrant-php7/vagrant"
+alias wm="cd ~/Dropbox/Wenmark"
+alias web="cd /Users/mwender/webdev"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias g="git"
 alias h="history"
 alias j="jobs"
-alias sublnote="subl ~/Dropbox/evernote.sublime-project"
+alias journal="subl ~/Dropbox/Docs/bullet-journal/bullet-journal.sublime-project"
 
 # Application Shortcuts
 alias chrm='open /Applications/Google Chrome.app'
