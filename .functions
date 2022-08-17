@@ -21,6 +21,13 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
+# Fix AirPlay
+function fixairplay(){
+	sudo killall coreaudiod 
+	sudo killall AirPlayUIAgent
+	sudo killall AirPlayXPCHelper
+}
+
 # Run SSHMAN
 function sshman(){
 	cd ~/Dropbox/Php/sshman
