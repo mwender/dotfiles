@@ -21,6 +21,17 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
+# Open SSHMan
+function sshman(){
+	php ~/Dropbox/Php/sshman.phar
+}
+
+
+# Open with Photoshop
+function openinphotoshop(){
+	open -a 'Adobe Photoshop 2022' $1
+}
+
 # Find Local Site Shells
 function localshells(){
 	find ~/Library/Application\ Support/Local/ssh-entry/*.sh -exec grep -H 'echo -n -e' {} \; | sed -E 's/^(.*):.*;(.*)Shell\\.*/\2 @ "\1"/' | column -s '@' -t
