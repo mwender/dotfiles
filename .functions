@@ -21,6 +21,13 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
+# Run SSHMAN
+function sshman(){
+	cd ~/Dropbox/Php/sshman
+	php sshman.php
+	cd -
+}
+
 # Open with Photoshop
 function openinphotoshop(){
 	open -a 'Adobe Photoshop 2022' $1
