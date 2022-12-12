@@ -1,8 +1,15 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 
+export PATH="/usr/local/sbin:$PATH"
+
 # Add pyenv to PATH so that you can reference python (not python3)
 export PATH="$HOME/.pyenv/shims:$PATH";
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
