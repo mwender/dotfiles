@@ -65,6 +65,11 @@ invoice(){
 	open https://clients.wenderhost.com/administration/invoices.php?action=edit\&id=$1
 }
 
+# Open WENMARK WHMCS Invoice
+wminv(){
+	open https://clients.wenmarkdigital.com/administration/invoices.php?action=edit\&id=$1
+}
+
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";
