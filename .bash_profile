@@ -3,6 +3,9 @@ export PATH="$HOME/bin:$PATH";
 
 export PATH="/usr/local/sbin:$PATH"
 
+# Add composer libraries to $PATH
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+
 # Add pyenv to PATH so that you can reference python (not python3)
 export PATH="$HOME/.pyenv/shims:$PATH";
 
