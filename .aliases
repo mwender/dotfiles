@@ -18,6 +18,7 @@ alias g="git"
 alias h="history"
 alias j="jobs"
 alias journal="subl ~/Dropbox/Docs/bullet-journal/bullet-journal.sublime-project"
+alias wpplugins="cd ~/Dropbox/WordPress/Plugins/AAA-Preferred-Plugins"
 
 # Application Shortcuts
 alias chrm='open /Applications/Google Chrome.app'
