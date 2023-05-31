@@ -22,7 +22,7 @@ alias wpplugins="cd ~/Dropbox/WordPress/Plugins/AAA-Preferred-Plugins"
 
 # Application Shortcuts
 alias chrm='open /Applications/Google Chrome.app'
-alias envelope='open ~/Dropbox/envelope.docx'
+alias envelope='open ~/Dropbox/envelope.pages'
 alias evernote='open -a Evernote'
 alias illustrator='open /Applications/Adobe Illustrator CC 2015/Adobe Illustrator.app'
 alias photoshop='open -a PhotoShop'
