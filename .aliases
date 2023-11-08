@@ -44,6 +44,7 @@ alias sftp="with-readline sftp"
 # List all files colorized in long format
 alias l="ls -lF ${colorflag}"
 alias ll="ls -lahF ${colorflag}"
+alias llc="ls -lahFC ${colorflag}"
 
 # List all files colorized in long format, including dot files
 alias la="ls -laF ${colorflag}"
