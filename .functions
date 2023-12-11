@@ -21,9 +21,6 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
-# Update Composer Sites
-#!/bin/bash
-
 # Define the function updateBedrockSites
 function updateBedrockSites() {
 	clear
