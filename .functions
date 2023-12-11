@@ -31,6 +31,7 @@ function updateBedrockSites() {
     	echo "✅ Found $HOME/.sites. Preparing to update sites..."
         # Read each line from .sites file
         while IFS= read -r directory; do
+        	echo "\n-----------------------------"
         	echo "👉 Updating $directory"
             # Change to the directory
             cd "$directory" || { echo "Error: Unable to change directory to $directory"; continue; }
