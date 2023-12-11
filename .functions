@@ -48,7 +48,7 @@ function updateBedrockSites() {
                     if ! git diff --quiet -- composer.json composer.lock; then
                         # Commit changes
                         git add composer.json composer.lock
-                        git commit -m "Composer updates" -m "$(composer update)"
+                        git commit -m "[Bedrock Updater] Composer updates" -m "$(composer update)"
 
                         # Push changes to remote repository
                         git push #origin master  # Replace 'master' with your branch name if different
