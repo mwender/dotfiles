@@ -31,7 +31,7 @@ function updateBedrockSites() {
     	echo "✅ Found $HOME/.sites. Preparing to update sites..."
         # Read each line from .sites file
         while IFS= read -r directory; do
-        	echo "\n-----------------------------"
+        	echo -e "\n-----------------------------"
         	echo "👉 Updating $directory"
             # Change to the directory
             cd "$directory" || { echo "Error: Unable to change directory to $directory"; continue; }
@@ -40,7 +40,7 @@ function updateBedrockSites() {
             if [ -d .git ]; then
                 # Check for uncommitted changes in composer files
                 if git diff --quiet -- composer.json composer.lock; then
-                    echo "Directory $directory has clean composer files. Updating..."
+                    echo -e "✅ Directory $directory has clean composer files. Updating...\n"
 
                     # Run composer update
                     composer update
@@ -53,12 +53,12 @@ function updateBedrockSites() {
 
                         # Push changes to remote repository
                         git push #origin master  # Replace 'master' with your branch name if different
-                        echo "Composer files updated, committed, and pushed in $directory."
+                        echo -e "\nComposer files updated, committed, and pushed in $directory."
                     else
-                        echo "No changes to composer files in $directory."
+                        echo "🔔 No changes to composer files in $directory."
                     fi
                 else
-                    echo "Directory $directory has uncommitted changes in composer files. Skipping..."
+                    echo "🛑 Directory $directory has uncommitted changes in composer files. Skipping..."
                 fi
             else
                 echo "Error: $directory is not a Git repository. Skipping..."
@@ -68,7 +68,7 @@ function updateBedrockSites() {
             cd - >/dev/null || exit
         done < "$HOME/.sites"
     else
-        echo "Error: .sites file not found in $HOME."
+        echo "🛑 Error: .sites file not found in $HOME."
     fi
 }
 
