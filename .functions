@@ -21,6 +21,56 @@ shrinkpng(){
 	pngquant --quality 70-90 --force --speed 1 -v --ext .png --force $1
 }
 
+# Update Composer Sites
+#!/bin/bash
+
+# Define the function updateBedrockSites
+function updateBedrockSites() {
+    # Check if .sites file exists
+    if [ -e "$HOME/.sites" ]; then
+    	echo "✅ Found $HOME/.sites. Preparing to update sites..."
+        # Read each line from .sites file
+        while IFS= read -r directory; do
+        	echo "👉 Updating $directory"
+            # Change to the directory
+            cd "$directory" || { echo "Error: Unable to change directory to $directory"; continue; }
+
+            # Check if .git directory exists
+            if [ -d .git ]; then
+                # Check for uncommitted changes in composer files
+                if git diff --quiet -- composer.json composer.lock; then
+                    echo "Directory $directory has clean composer files. Updating..."
+
+                    # Run composer update
+                    composer update
+
+                    # Check if there are changes after the update
+                    if ! git diff --quiet -- composer.json composer.lock; then
+                        # Commit changes
+                        git add composer.json composer.lock
+                        git commit -m "Composer updates" -m "$(composer update)"
+
+                        # Push changes to remote repository
+                        git push #origin master  # Replace 'master' with your branch name if different
+                        echo "Composer files updated, committed, and pushed in $directory."
+                    else
+                        echo "No changes to composer files in $directory."
+                    fi
+                else
+                    echo "Directory $directory has uncommitted changes in composer files. Skipping..."
+                fi
+            else
+                echo "Error: $directory is not a Git repository. Skipping..."
+            fi
+
+            # Move back to the original directory
+            cd - >/dev/null || exit
+        done < "$HOME/.sites"
+    else
+        echo "Error: .sites file not found in $HOME."
+    fi
+}
+
 # Fix AirPlay
 function fixairplay(){
 	sudo killall coreaudiod 
