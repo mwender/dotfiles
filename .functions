@@ -26,21 +26,31 @@ shrinkpng(){
 
 # Define the function updateBedrockSites
 function updateBedrockSites() {
+	clear
+	divider="------------------------------------"
+	echo -e "$divider\nBEDROCK SITE UPDATER\n$divider"
     # Check if .sites file exists
     if [ -e "$HOME/.sites" ]; then
-    	echo "✅ Found $HOME/.sites. Preparing to update sites..."
+		# Count the number of non-blank lines in .sites file
+		total_sites=$(grep -c -v '^ *$' "$HOME/.sites")
+
+    	#echo "⚙️ Found $HOME/.sites. Preparing to update sites..."
+		# Display the total number of sites
+		echo "⚙️  Found $total_sites site(s) in $HOME/.sites. Updating $total_sites sites..."
+
         # Read each line from .sites file
         while IFS= read -r directory; do
-        	echo -e "\n-----------------------------"
-        	echo "👉 Updating $directory"
+
             # Change to the directory
             cd "$directory" || { echo "Error: Unable to change directory to $directory"; continue; }
 
             # Check if .git directory exists
             if [ -d .git ]; then
+	        	echo -e "\n$divider"
+	        	echo "👉 Updating $directory"
                 # Check for uncommitted changes in composer files
                 if git diff --quiet -- composer.json composer.lock; then
-                    echo -e "✅ Directory $directory has clean composer files. Updating...\n"
+                    echo -e "✅ Directory's composer files are clean. Updating...\n"
 
                     # Run composer update
                     composer update
@@ -55,13 +65,13 @@ function updateBedrockSites() {
                         git push #origin master  # Replace 'master' with your branch name if different
                         echo -e "\nComposer files updated, committed, and pushed in $directory."
                     else
-                        echo "🔔 No changes to composer files in $directory."
+                        echo -e "\n🔔 No changes to composer files in $directory"
                     fi
                 else
                     echo "🛑 Directory $directory has uncommitted changes in composer files. Skipping..."
                 fi
             else
-                echo "Error: $directory is not a Git repository. Skipping..."
+                echo -e "\n$divider\nError: '$directory' is not a Git repository. Skipping...\n"
             fi
 
             # Move back to the original directory
