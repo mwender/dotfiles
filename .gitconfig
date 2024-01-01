@@ -9,6 +9,10 @@
 	type = cat-file -t
 	dump = cat-file -p
 
+# My aliases
+	lastnote = show --no-patch --no-notes -1
+  shownote = "!f() { if [[ $1 =~ ^[0-9]+$ ]]; then git show --no-patch --no-notes -n 1 HEAD~$(( $1 - 1 )); else git show --no-patch --no-notes ${1:--1}; fi; }; f"
+
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
