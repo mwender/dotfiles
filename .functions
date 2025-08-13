@@ -16,6 +16,45 @@ function calc() {
 	printf "\n";
 }
 
+# Cleans the current directory by prompting the user to remove files created today.
+function cleanupfiles() {
+    # Get today's date in the format YYYY-MM-DD
+    today=$(date +%Y-%m-%d)
+
+    # Find files modified or created today in the current directory
+    # Use -newermt to find files modified after the start of today and before the end of today.
+    files=$(find . -maxdepth 1 -type f -newermt "$today" ! -newermt "$today + 1 day")
+
+    # Check if any files were found
+    if [ -z "$files" ]; then
+        echo "No new files saved in the current directory today."
+        return
+    fi
+
+    # List the files found
+    echo "Files saved in the current directory today:"
+    echo "$files"
+
+    # Prompt user for confirmation to delete
+    read -p "Do you want to clean these files? (y/n): " answer
+
+    # Check user's response
+    case "$answer" in
+        [Yy]* )
+            # Remove the files
+            echo "$files" | xargs rm
+            echo "Files have been deleted."
+            ;;
+        [Nn]* )
+            echo "No files were deleted."
+            ;;
+        * )
+            echo "Invalid response. Please enter y or n."
+            ;;
+    esac
+}
+
+
 # Function to autocomplete domain names for the sshconn command
 _sshconn_completions() {
   # Get the input so far (partial domain name)
