@@ -8,10 +8,11 @@ alias -- -="cd -"
 alias cpwd="pwd | pbcopy"
 
 # Shortcuts
+alias a="php artisan"
 alias d="cd ~/Dropbox"
 alias wh="cd ~/Dropbox/WenderHost"
 alias wm="cd ~/Dropbox/Wenmark"
-alias web="cd /Users/mwender/webdev/local-lightning"
+alias web="cd ~/webdev/laravel-valet"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias g="git"
