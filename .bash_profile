@@ -1,93 +1,149 @@
 # ============================================
-# ARM64 Homebrew - MUST BE FIRST
+# Bash Login Profile
+# - ARM Homebrew first
+# - Remove Intel /usr/local/bin from PATH
+# - Keep tool paths tidy (Composer, Atuin, pyenv, Volta, Bun, Herd)
 # ============================================
+
+# --------------------------------------------
+# ARM64 Homebrew (MUST BE FIRST)
+# --------------------------------------------
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Remove Intel Homebrew from PATH to avoid Rosetta-era /usr/local conflicts.
+# Remove Intel Homebrew (/usr/local/bin) from PATH to avoid Rosetta-era conflicts.
+# (We do NOT touch Apple's cryptex bootstrap usr/local path.)
 PATH="$(echo "$PATH" | tr ':' '\n' | grep -v '^/usr/local/bin$' | paste -sd ':' -)"
 export PATH
 
+# --------------------------------------------
+# Base PATH additions (prepend so they win)
+# --------------------------------------------
+
+# Composer global binaries (Valet, etc.)
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-# Add Atuin to the path
-export PATH="$HOME/.atuin/bin:$PATH";
+# Herd injected PHP binary (if you use Herd PHP tooling).
+export PATH="$HOME/Library/Application Support/Herd/bin:$PATH"
 
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH";
+# Atuin
+export PATH="$HOME/.atuin/bin:$PATH"
 
-# Add pyenv to PATH so that you can reference python (not python3)
-export PATH="$HOME/.pyenv/shims:$PATH";
+# Personal bin
+export PATH="$HOME/bin:$PATH"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# Local bin (often used by pipx/other tools)
+export PATH="$HOME/.local/bin:$PATH"
 
-# Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don't want to commit.
-for file in ~/.{path,bash_prompt,bash_completion,exports,aliases,functions,extra}; do
-  [ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
+# pyenv shims
+export PATH="$HOME/.pyenv/shims:$PATH"
 
-# Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob;
-
-# Append to the Bash history file, rather than overwriting it
-shopt -s histappend;
-
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
-
-# Enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-  shopt -s "$option" 2> /dev/null;
-done;
-
-# Add tab completion for many Bash commands
-if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-  source "$(brew --prefix)/share/bash-completion/bash_completion";
-elif [ -f /etc/bash_completion ]; then
-  source /etc/bash_completion;
-fi;
-
-# source .bash_completion
-source ~/.bash_completion
-
-# Enable tab completion for `g` by marking it as an alias for `git`
-# FIXED: Use brew --prefix instead of hardcoded /usr/local
-if type _git &> /dev/null && [ -f "$(brew --prefix)/etc/bash_completion.d/git-completion.bash" ]; then
-  complete -o default -o nospace -F _git g;
-fi;
-
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
-
-# Add tab completion for `defaults read|write NSGlobalDomain`
-# You could just use `-g` instead, but I like being explicit
-complete -W "NSGlobalDomain" defaults;
-
-# Add `killall` tab completion for common apps
-complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
-
-# Herd injected PHP binary.
-export PATH="/Users/mwender/Library/Application Support/Herd/bin/":$PATH
-
-# Herd injected PHP 8.2 configuration.
-export HERD_PHP_82_INI_SCAN_DIR="/Users/mwender/Library/Application Support/Herd/config/php/82/"
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-. "$HOME/.atuin/bin/env"
-
-# REMOVE THIS - conflicts with ARM brew
-# export PATH=$PATH:/usr/local/lib/node_modules
-
-. "$HOME/.local/bin/env"
+# Volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# bun
+# Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# RVM bin (keep available for scripting)
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# --------------------------------------------
+# Load supporting dotfiles (if present)
+# ~/.path can be used to extend PATH.
+# ~/.extra can be used for other local settings.
+# --------------------------------------------
+for file in ~/.{path,bash_prompt,bash_completion,exports,aliases,functions,extra}; do
+  if [ -r "$file" ] && [ -f "$file" ]; then
+    source "$file"
+  fi
+done
+unset file
+
+# --------------------------------------------
+# Shell options
+# --------------------------------------------
+
+# Case-insensitive globbing (pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Enable some Bash 4 features when possible
+for option in autocd globstar; do
+  shopt -s "$option" 2> /dev/null
+done
+
+# --------------------------------------------
+# Bash completion
+# --------------------------------------------
+
+if command -v brew > /dev/null 2>&1 && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+  source "$(brew --prefix)/share/bash-completion/bash_completion"
+elif [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion
+fi
+
+# Load your custom completion file if it exists
+if [ -f "$HOME/.bash_completion" ]; then
+  source "$HOME/.bash_completion"
+fi
+
+# Enable tab completion for `g` (git alias) when git completion is available
+if type _git > /dev/null 2>&1 && [ -f "$(brew --prefix)/etc/bash_completion.d/git-completion.bash" ]; then
+  complete -o default -o nospace -F _git g
+fi
+
+# SSH hostname completion from ~/.ssh/config (ignoring wildcards)
+if [ -f "$HOME/.ssh/config" ]; then
+  complete -o default -o nospace \
+    -W "$(grep "^Host" "$HOME/.ssh/config" | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" \
+    scp sftp ssh
+fi
+
+# defaults read|write NSGlobalDomain completion
+complete -W "NSGlobalDomain" defaults
+
+# killall completion for common apps
+complete -o nospace -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
+
+# --------------------------------------------
+# Herd env vars (keep if you use Herd)
+# --------------------------------------------
+
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/82/"
+
+# --------------------------------------------
+# RVM initialization (functions, gemsets, etc.)
+# --------------------------------------------
+if [ -s "$HOME/.rvm/scripts/rvm" ]; then
+  source "$HOME/.rvm/scripts/rvm"
+fi
+
+# --------------------------------------------
+# Atuin env
+# --------------------------------------------
+if [ -f "$HOME/.atuin/bin/env" ]; then
+  . "$HOME/.atuin/bin/env"
+fi
+
+# --------------------------------------------
+# Local env scripts (if present)
+# --------------------------------------------
+if [ -f "$HOME/.local/bin/env" ]; then
+  . "$HOME/.local/bin/env"
+fi
+
+# NOTE:
+# Removed legacy Intel node modules PATH line:
+# export PATH="$PATH:/usr/local/lib/node_modules"
+ 
+# De-duplicate PATH entries while preserving order.
+PATH="$(printf '%s' "$PATH" | awk -v RS=':' '!a[$0]++ { if (NR==1) printf "%s", $0; else printf ":%s", $0 }')"
+export PATH
+
