@@ -3,17 +3,17 @@
 # ============================================
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Remove Intel Homebrew from PATH to avoid Rosetta-era /usr/local conflicts.
+PATH="$(echo "$PATH" | tr ':' '\n' | grep -v '^/usr/local/bin$' | paste -sd ':' -)"
+export PATH
+
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 # Add Atuin to the path
 export PATH="$HOME/.atuin/bin:$PATH";
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
-
-# Use brew prefix instead of hardcoded /usr/local
-export PATH="$(brew --prefix)/sbin:$PATH"
-
-# Adding composer libs to path
-export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # Add pyenv to PATH so that you can reference python (not python3)
 export PATH="$HOME/.pyenv/shims:$PATH";
